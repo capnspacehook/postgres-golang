@@ -1,7 +1,8 @@
-FROM golang:stretch
+FROM golang:alpine
 
-# Install Postgres 12
-RUN apt-get update && apt-get install -y gnupg2
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ stretch-pgdg main" >  /etc/apt/sources.list.d/pgdg.list
-RUN apt-get update && apt-get install -y postgresql-12 postgresql-client-12
+# Copy compiled Go toolchain into Postgres image
+FROM postgres:alpine
+COPY --from=0 /usr/local/go /usr/local/
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
