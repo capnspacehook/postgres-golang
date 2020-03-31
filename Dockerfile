@@ -8,6 +8,6 @@ ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 
 # Install git and zip
-RUN apk --update add git zip && \
+RUN apk --update add git gcc && \
     rm -rf /var/lib/apt/lists/* && \
     rm /var/cache/apk/*
