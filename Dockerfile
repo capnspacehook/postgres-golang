@@ -12,3 +12,7 @@ RUN apk --update add git gcc musl-dev && \
     rm -f /usr/libexec/gcc/x86_64-alpine-linux-musl/9.2.0/cc1obj && \
     rm -rf /var/lib/apt/lists/* && \
     rm /var/cache/apk/* 
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["postgres"]
+
