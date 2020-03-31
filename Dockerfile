@@ -6,3 +6,8 @@ COPY --from=0 /usr/local/go /usr/local/
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+
+# Install git and zip
+RUN apk --update add git zip && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm /var/cache/apk/*
